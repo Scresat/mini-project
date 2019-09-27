@@ -1,0 +1,115 @@
+mysql> create table medicine(
+    -> med_id int,
+    -> med_name varchar(20),
+    -> quantity int,
+    -> cost int,
+    -> expiry_date date);
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| name               |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use name;
+Database changed
+mysql> create table medicine(
+    -> med_id int,
+    -> med_name varchar(20),
+    -> quantity int,
+    -> cost int,
+    -> expiry_date date);
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> desc medicine;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| med_id      | int(11)     | YES  |     | NULL    |       |
+| med_name    | varchar(20) | YES  |     | NULL    |       |
+| quantity    | int(11)     | YES  |     | NULL    |       |
+| cost        | int(11)     | YES  |     | NULL    |       |
+| expiry_date | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.16 sec)
+
+mysql> create table admin(
+    -> username varchar(20),
+    -> password varchar(20));
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> create table customer(
+    -> cust_id varchar(20),
+    -> cust_name varchar(20));
+Query OK, 0 rows affected (0.46 sec)
+
+
+mysql> desc medicine;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| med_id      | int(11)     | YES  |     | NULL    |       |
+| med_name    | varchar(20) | YES  |     | NULL    |       |
+| quantity    | int(11)     | YES  |     | NULL    |       |
+| cost        | int(11)     | YES  |     | NULL    |       |
+| expiry_date | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into medicine values(1,'crocin',150,30,'2021-12-27');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from medicine:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 1
+mysql> select * from medicine;
++--------+----------+----------+------+-------------+
+| med_id | med_name | quantity | cost | expiry_date |
++--------+----------+----------+------+-------------+
+|      1 | crocin   |      150 |   30 | 2021-12-27  |
++--------+----------+----------+------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> create table customer(cust_id int,cust_name varchar(20),primary key(cust_id));
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> drop table bill;
+Query OK, 0 rows affected (2.21 sec)
+
+mysql> create table bill(
+    -> bill_no int(10),
+    -> price DOUBLE,
+    -> cust_id int,
+    -> primary key(bill_no),
+    -> foreign key(cust_id) references customer(cust_id));
+Query OK, 0 rows affected, 1 warning (0.69 sec)
+
+mysql> desc bill;
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| bill_no | int(10) | NO   | PRI | NULL    |       |
+| price   | double  | YES  |     | NULL    |       |
+| cust_id | int(11) | YES  | MUL | NULL    |       |
++---------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cust_id   | int(11)     | NO   | PRI | NULL    |       |
+| cust_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
