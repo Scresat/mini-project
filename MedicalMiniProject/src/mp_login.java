@@ -45,6 +45,7 @@ Connection conn = null;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txt_password = new javax.swing.JPasswordField();
@@ -54,12 +55,15 @@ Connection conn = null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lucida Bright", 1, 18), new java.awt.Color(51, 153, 255))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 153, 204))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setText("Username");
 
+        txt_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_password.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
         txt_password.addActionListener(new java.awt.event.ActionListener() {
@@ -73,9 +77,10 @@ Connection conn = null;
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("Password");
 
+        txt_username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_username.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 204), 1, true));
         txt_username.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +94,7 @@ Connection conn = null;
             }
         });
 
-        btn_login.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btn_login.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_login.setText("Login");
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,47 +112,58 @@ Connection conn = null;
                         .addGap(185, 185, 185)
                         .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(46, 46, 46)
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txt_username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                             .addComponent(txt_password, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btn_login)
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(165, 165, 165)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(168, 168, 168))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -162,9 +178,15 @@ Connection conn = null;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // when enter key is performed
             // login will be performed
             String password = txt_password.getText();
+            String username = txt_username.getText();
             if (password.equals("")) {
+                JOptionPane.showMessageDialog(null, "Plese enter password");
+            }
+            else if (username.equals("")) {
                 JOptionPane.showMessageDialog(null, "Plese enter username");
-            } else {
+            }  
+            
+            else {
 
                 try {
                     String sql = "select * from user where username = ? and password = ?";
@@ -172,10 +194,9 @@ Connection conn = null;
                     pst.setString(1, txt_username.getText()); // 1 for first ?
                     pst.setString(2, txt_password.getText());
                     rs = pst.executeQuery();
-
                     if (rs.next()) {
-                        mp_mainscreen mainscreen = new mp_mainscreen();
-        mainscreen.setVisible(true);
+                        mp_mainscreenNew mainscreen = new mp_mainscreenNew();
+                        mainscreen.setVisible(true);
         Close();
                     } else {
                         JOptionPane.showMessageDialog(null, "username & password not correct");
@@ -195,8 +216,11 @@ Connection conn = null;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // when enter key is performed
             // login will be performed
             String username = txt_username.getText();
+            String password = txt_password.getText();
             if (username.equals("")) {
                 JOptionPane.showMessageDialog(null, "Plese enter username");
+            } else if (password.equals("")) {
+                JOptionPane.showMessageDialog(null, "Plese enter password");
             } else {
 
                 try {
@@ -207,8 +231,8 @@ Connection conn = null;
                     rs = pst.executeQuery();
 
                     if (rs.next()) {
-                        mp_mainscreen mainscreen = new mp_mainscreen();
-        mainscreen.setVisible(true);
+                        mp_mainscreenNew mainscreen = new mp_mainscreenNew();
+                        mainscreen.setVisible(true);
         Close();
                     } else {
                         JOptionPane.showMessageDialog(null, "username & password not correct");
@@ -231,8 +255,8 @@ Connection conn = null;
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                mp_mainscreen mainscreen = new mp_mainscreen();
-        mainscreen.setVisible(true);
+                mp_mainscreenNew mainscreen = new mp_mainscreenNew();
+                mainscreen.setVisible(true);
         Close();
             } else {
                 JOptionPane.showMessageDialog(null, "username & password not correct");
@@ -284,6 +308,7 @@ Connection conn = null;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables

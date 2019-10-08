@@ -44,13 +44,39 @@ public void Close() {//method to close the window
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table_medicines = new javax.swing.JTable();
         btn_delete = new javax.swing.JButton();
         btn_cancel = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_medicines = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        btn_delete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_delete.setText("Delete");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
+
+        btn_cancel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_cancel.setText("Cancel");
+        btn_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setBorder(null);
+
+        table_medicines.setAutoCreateRowSorter(true);
+        table_medicines.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        table_medicines.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         table_medicines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -62,55 +88,78 @@ public void Close() {//method to close the window
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_medicines.setGridColor(new java.awt.Color(255, 255, 255));
+        table_medicines.setRowHeight(25);
+        table_medicines.setSelectionBackground(new java.awt.Color(122, 72, 221));
         table_medicines.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_medicinesMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(table_medicines);
+        jScrollPane1.setViewportView(table_medicines);
 
-        btn_delete.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btn_delete.setText("Delete");
-        btn_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_deleteActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel3.setText("Current Stock");
 
-        btn_cancel.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btn_cancel.setText("Cancel");
-        btn_cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancelActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel4.setText("Current Stock");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setText("Select Medicine to delete");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_delete)
-                        .addGap(44, 44, 44)
-                        .addComponent(btn_cancel)
-                        .addGap(303, 303, 303))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_delete)
+                .addGap(62, 62, 62)
+                .addComponent(btn_cancel)
+                .addGap(273, 273, 273))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(jLabel5)
+                .addContainerGap(273, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(321, 321, 321)
+                    .addComponent(jLabel3)
+                    .addContainerGap(321, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(331, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(311, 311, 311)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_delete)
                     .addComponent(btn_cancel))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(204, 204, 204)
+                    .addComponent(jLabel3)
+                    .addContainerGap(205, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(214, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(195, 195, 195)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,40 +170,13 @@ public void Close() {//method to close the window
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void table_medicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_medicinesMouseClicked
-        int row = table_medicines.getSelectedRow();
-        String table_click = table_medicines.getModel().getValueAt(row, 0).toString(); // employee id is taken into table_click variable
-
-        try {
-            String sql = "select * from medicine where id =" + table_click + ";";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-
-            if (rs.next()) {
-                empID = rs.getString("id");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            try {
-                rs.close();
-                pst.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-        //        btn_save.setEnabled(false);
-        //        btn_new.setEnabled(true);
-        //        btn_update.setEnabled(true);
-        //        btn_delete.setEnabled(true);
-        //        btn_clear.setEnabled(true);
-    }//GEN-LAST:event_table_medicinesMouseClicked
  public void UpdateTable() {
         try {
             String sql = "select * from medicine";
@@ -181,6 +203,7 @@ public void Close() {//method to close the window
             // second parameter "Delete" is for the name of the OptionPane appearing
             if (p == 0) {
                 try {
+                    btn_delete.setEnabled(false);
                     String sql = "delete from medicine where id = ?;";
                     pst = conn.prepareStatement(sql);
                     pst.setString(1, empID);
@@ -203,6 +226,31 @@ public void Close() {//method to close the window
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
         Close();
     }//GEN-LAST:event_btn_cancelActionPerformed
+
+    private void table_medicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_medicinesMouseClicked
+        int row = table_medicines.getSelectedRow();
+        String table_click = table_medicines.getModel().getValueAt(row, 0).toString(); // employee id is taken into table_click variable
+
+        try {
+            String sql = "select * from medicine where id =" + table_click + ";";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                empID = rs.getString("id");
+                btn_delete.setEnabled(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                rs.close();
+                pst.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_table_medicinesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -242,10 +290,15 @@ public void Close() {//method to close the window
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_delete;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table_medicines;
     // End of variables declaration//GEN-END:variables
     
     private String empID = "";
+    
+    
 }

@@ -40,13 +40,17 @@ public class mp_bill extends javax.swing.JFrame {
         UpdateTable();
         ClearCart();
         btn_addtocart.setEnabled(false);
+        btn_bill.setEnabled(false);
+        btn_remove.setEnabled(false);
+        btn_clear.setEnabled(false);
     }
      public void UpdateTable() {
         try {
-            String sql = "select * from medicine";
+            String sql = "select * from medicine where quantity > 0 and id not in (select id from cart);;";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             table_medicines.setModel(DbUtils.resultSetToTableModel(rs));
+            table_medicines.getTableHeader().setEnabled(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         } finally {
@@ -68,18 +72,60 @@ public class mp_bill extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table_medicines = new javax.swing.JTable();
         txt_quantity = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        table_cart = new javax.swing.JTable();
         btn_addtocart = new javax.swing.JButton();
-        btn_clearcart = new javax.swing.JButton();
+        btn_clear = new javax.swing.JButton();
         btn_bill = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_medicines = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_cart = new javax.swing.JTable();
+        btn_remove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Enter Quantity");
+
+        btn_addtocart.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_addtocart.setText("Add to cart");
+        btn_addtocart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addtocartActionPerformed(evt);
+            }
+        });
+
+        btn_clear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_clear.setText("Clear Cart");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
+
+        btn_bill.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_bill.setText("Generate Bill");
+        btn_bill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_billActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setBorder(null);
+
+        table_medicines.setAutoCreateRowSorter(true);
+        table_medicines.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        table_medicines.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         table_medicines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -91,16 +137,24 @@ public class mp_bill extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_medicines.setGridColor(new java.awt.Color(255, 255, 255));
+        table_medicines.setRowHeight(25);
+        table_medicines.setRowSorter(null);
+        table_medicines.setSelectionBackground(new java.awt.Color(122, 72, 221));
+        table_medicines.getTableHeader().setResizingAllowed(false);
+        table_medicines.getTableHeader().setReorderingAllowed(false);
         table_medicines.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_medicinesMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(table_medicines);
+        jScrollPane1.setViewportView(table_medicines);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel7.setText("Enter Quantity");
+        jScrollPane2.setBorder(null);
 
+        table_cart.setAutoCreateRowSorter(true);
+        table_cart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        table_cart.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         table_cart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -112,29 +166,21 @@ public class mp_bill extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(table_cart);
-
-        btn_addtocart.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_addtocart.setText("Add to cart");
-        btn_addtocart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_addtocartActionPerformed(evt);
+        table_cart.setGridColor(new java.awt.Color(255, 255, 255));
+        table_cart.setRowHeight(25);
+        table_cart.setSelectionBackground(new java.awt.Color(122, 72, 221));
+        table_cart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_cartMouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(table_cart);
 
-        btn_clearcart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_clearcart.setText("Clear Cart");
-        btn_clearcart.addActionListener(new java.awt.event.ActionListener() {
+        btn_remove.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_remove.setText("Remove Selection");
+        btn_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clearcartActionPerformed(evt);
-            }
-        });
-
-        btn_bill.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_bill.setText("Generate Bill");
-        btn_bill.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_billActionPerformed(evt);
+                btn_removeActionPerformed(evt);
             }
         });
 
@@ -146,44 +192,50 @@ public class mp_bill extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_quantity)
+                            .addComponent(btn_addtocart, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_clearcart)
-                                .addGap(115, 115, 115)
-                                .addComponent(btn_bill))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_quantity)
-                                    .addComponent(btn_addtocart, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                                .addComponent(btn_remove)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_bill))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(31, 31, 31)
                         .addComponent(btn_addtocart))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_clearcart)
-                    .addComponent(btn_bill))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_bill)
+                            .addComponent(btn_clear)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btn_remove)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(22, 22, 22))
         );
 
@@ -191,17 +243,13 @@ public class mp_bill extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -234,7 +282,10 @@ public class mp_bill extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
-        if (Integer.parseInt(quantity_validate) > Integer.parseInt(quantity)) {
+        if (quantity_validate.equals("")){
+            JOptionPane.showMessageDialog(null, "Enter quantity");
+        }
+        else if (Integer.parseInt(quantity_validate) > Integer.parseInt(quantity)) {
             JOptionPane.showMessageDialog(null, "Not enough stock available!");
          }
         
@@ -242,6 +293,7 @@ public class mp_bill extends javax.swing.JFrame {
             try {
                 String sql = "insert into cart (id, price, quantity)values(?,?,?);";
                 pst = conn.prepareStatement(sql);
+                String currentSelectedID = empID;
                 pst.setString(1, empID);
                 pst.setString(2, price);
                 pst.setString(3, txt_quantity.getText());
@@ -249,6 +301,11 @@ public class mp_bill extends javax.swing.JFrame {
 
                 pst.execute();
                 UpdateCart();
+                updateQuantityAfterAddingToCart(currentSelectedID);
+                btn_bill.setEnabled(true);
+                btn_clear.setEnabled(true);
+                txt_quantity.setText("");
+                noincart++;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             } finally { // gurantees this section will be executed, even if error is encountered
@@ -261,6 +318,23 @@ public class mp_bill extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_btn_addtocartActionPerformed
+    
+    private void updateQuantityAfterAddingToCart(String currentSelectedID) {
+        try{
+            String sql = "update medicine, cart set medicine.quantity = medicine.quantity-cart.quantity where medicine.id = ? and cart.id = ?;";
+            
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, currentSelectedID);
+            pst.setString(2, currentSelectedID);
+            pst.execute();
+            UpdateCart();
+            UpdateTable();
+            btn_addtocart.setEnabled(false);   
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     public void UpdateCart() {
         try {
             String sql = "select medicine.name,cart.id, cart.quantity, cart.price*cart.quantity as 'Total Price' from cart, medicine where medicine.id = cart.id";
@@ -277,11 +351,81 @@ public class mp_bill extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
+    }    
+    private void ClearCart(){
+        try{
+            String sql = "update medicine, cart set medicine.quantity = medicine.quantity+cart.quantity where medicine.id = cart.id;";
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+            UpdateCart();
+            UpdateTable();
+            btn_addtocart.setEnabled(false);   
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try {
+                String sql = "delete from cart;";
+                pst = conn.prepareStatement(sql);
+                pst.execute();
+                UpdateCart();
+                btn_bill.setEnabled(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+            ClearCart();
+            UpdateTable();
+            UpdateCart();
+            txt_quantity.setText("");
+            btn_remove.setEnabled(false);
+            btn_clear.setEnabled(false);
+    }//GEN-LAST:event_btn_clearActionPerformed
+    
+   
+    private void btn_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_billActionPerformed
+        try{      
+            
+            insertIntoBill();
+            
+            
+            UpdateCart();
+            UpdateTable();
+            btn_addtocart.setEnabled(false);
+            txt_quantity.setText("");
+            mp_generatedbill bill = new mp_generatedbill();
+            bill.setVisible(true);
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_btn_billActionPerformed
+
+    public void insertIntoBill(){
+        try {
+            
+            java.util.Date date=new java.util.Date();
+			
+            java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+            java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+
+            PreparedStatement ps=conn.prepareStatement("insert into bill (price, date, time) values ((select sum(price*quantity) from cart), ?,?);");
+            ps.setDate(1,sqlDate);
+            ps.setTimestamp(2,sqlTime);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        UpdateCart();
+    }//GEN-LAST:event_formWindowGainedFocus
+
     private void table_medicinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_medicinesMouseClicked
         btn_addtocart.setEnabled(true);
         int row = table_medicines.getSelectedRow();
-        String table_click = table_medicines.getModel().getValueAt(row, 0).toString(); // employee id is taken into table_click variable
+        String table_click = table_medicines.getModel().getValueAt(row, 0).toString(); 
 
         try {
             String sql = "select * from medicine where id =" + table_click + ";";
@@ -302,48 +446,67 @@ public class mp_bill extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_table_medicinesMouseClicked
-    
-    private void ClearCart(){
+
+    private void table_cartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_cartMouseClicked
+        int row = table_cart.getSelectedRow();
+        String table_click = table_cart.getModel().getValueAt(row, 1).toString();
+
         try {
-                String sql = "delete from cart;";
-                pst = conn.prepareStatement(sql);
-                pst.execute();
-                UpdateCart();
+            String sql = "select * from cart where id =" + table_click + ";";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                cartID = rs.getString("id");
+                btn_remove.setEnabled(true);
+            }
+            else
+            {
+                btn_clear.setEnabled(false);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                rs.close();
+                pst.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
-    }
-    private void btn_clearcartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearcartActionPerformed
-            ClearCart();
-    }//GEN-LAST:event_btn_clearcartActionPerformed
+    }//GEN-LAST:event_table_cartMouseClicked
 
-    private void btn_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_billActionPerformed
-        try{
-            String sql = "update medicine, cart set medicine.quantity = medicine.quantity-cart.quantity where cart.id = medicine.id;";
+    private void btn_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeActionPerformed
+         try{
+            String sql = "update medicine, cart set medicine.quantity = medicine.quantity+cart.quantity where medicine.id = ? and cart.id = ?;";
+            
             pst = conn.prepareStatement(sql);
+            pst.setString(1, cartID);
+            pst.setString(2, cartID);
             pst.execute();
-            
-            java.util.Date date=new java.util.Date();
-			
-            java.sql.Date sqlDate=new java.sql.Date(date.getTime());
-            java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
-
-            PreparedStatement ps=conn.prepareStatement("insert into bill (price, date, time) values ((select sum(price) from cart), ?,?);");
-            ps.setDate(1,sqlDate);
-            ps.setTimestamp(2,sqlTime);
-            ps.executeUpdate();
-            
             UpdateCart();
             UpdateTable();
-            btn_addtocart.setEnabled(false);
-            
-            mp_generatedbill bill = new mp_generatedbill();
-            bill.setVisible(true);
-            
+            btn_addtocart.setEnabled(false);  
+            noincart--;
+            if (noincart == 0){
+                btn_clear.setEnabled(false);
+            }
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_btn_billActionPerformed
+        
+        try {
+            String sql = "delete from cart where id = ?;";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, cartID);
+            pst.execute();
+            UpdateTable();
+            UpdateCart();
+            btn_remove.setEnabled(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } 
+    }//GEN-LAST:event_btn_removeActionPerformed
  
     /**
      * @param args the command line arguments
@@ -383,11 +546,12 @@ public class mp_bill extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addtocart;
     private javax.swing.JButton btn_bill;
-    private javax.swing.JButton btn_clearcart;
+    private javax.swing.JButton btn_clear;
+    private javax.swing.JButton btn_remove;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable table_cart;
     private javax.swing.JTable table_medicines;
     private javax.swing.JTextField txt_quantity;
@@ -396,4 +560,7 @@ public class mp_bill extends javax.swing.JFrame {
     String empID = "";
     String quantity = "";
     String price = "";
+    
+    String cartID = "";
+    int noincart = 0;
 }
