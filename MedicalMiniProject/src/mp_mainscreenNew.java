@@ -86,6 +86,11 @@ public class mp_mainscreenNew extends javax.swing.JFrame {
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         bg.setBackground(new java.awt.Color(250, 250, 255));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -408,6 +413,10 @@ public class mp_mainscreenNew extends javax.swing.JFrame {
          mp_delete delete = new mp_delete();
         delete.setVisible(true);
     }//GEN-LAST:event_btn_delete1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        UpdateTable();
+    }//GEN-LAST:event_formWindowActivated
  
     /**
      * @param args the command line arguments

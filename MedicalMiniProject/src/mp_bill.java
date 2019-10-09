@@ -49,6 +49,7 @@ public class mp_bill extends javax.swing.JFrame {
             String sql = "select * from medicine where quantity > 0 and id not in (select id from cart);;";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
+            
             table_medicines.setModel(DbUtils.resultSetToTableModel(rs));
             table_medicines.getTableHeader().setEnabled(false);
         } catch (Exception e) {
@@ -89,6 +90,11 @@ public class mp_bill extends javax.swing.JFrame {
                 formWindowGainedFocus(evt);
             }
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -381,6 +387,7 @@ public class mp_bill extends javax.swing.JFrame {
             txt_quantity.setText("");
             btn_remove.setEnabled(false);
             btn_clear.setEnabled(false);
+            btn_bill.setEnabled(false);
     }//GEN-LAST:event_btn_clearActionPerformed
     
    
@@ -490,6 +497,7 @@ public class mp_bill extends javax.swing.JFrame {
             noincart--;
             if (noincart == 0){
                 btn_clear.setEnabled(false);
+                btn_bill.setEnabled(false);
             }
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -507,6 +515,10 @@ public class mp_bill extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         } 
     }//GEN-LAST:event_btn_removeActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        ClearCart();
+    }//GEN-LAST:event_formWindowClosed
  
     /**
      * @param args the command line arguments

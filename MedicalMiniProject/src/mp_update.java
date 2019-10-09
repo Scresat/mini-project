@@ -38,7 +38,7 @@ public class mp_update extends javax.swing.JFrame {
 
         public void UpdateTable() {
         try {
-            String sql = "select * from medicine";
+            String sql = "select id as 'ID', name as 'Medicine Name', expiry as 'Expiry Date', price as 'Price', quantity as 'Stock Available' from medicine";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
